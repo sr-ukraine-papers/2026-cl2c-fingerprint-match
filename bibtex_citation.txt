@@ -1,0 +1,8 @@
+@article{c2c-fingerprint-match,
+  author  = "Kim, Minho and Jeon, Sohyeon and Lee, Hosang and Chang, Moonsoo and Progonov,Dmytro and Kuznetsov, Vasyl",
+  title   = "Robust user authentication on mobile devices with dynamic 3D fingerprint representation",
+  journal = "IEEE Transactions on Information Forensics and Security",
+  year    = 2026,
+  page    = {to appear}
+  note    = {under submission}
+}

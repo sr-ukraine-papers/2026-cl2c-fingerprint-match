@@ -1,0 +1,544 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+
+<!-- Proprietary CSS -->
+<!-- <link href="style.css" rel="stylesheet"> -->
+
+<!-- Google fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cantarell">
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+		integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+
+<!-- Care about mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Contactless-to-contact fingerprint matching on smartphones</title>
+
+</head>
+
+<body>
+
+<div class="container w-50">
+
+	<div class="row text-center">
+		<div class="col-12">
+		<h1 class="mt-5">Robust user authentication on mobile devices with dynamic 3D fingerprint representation</h1>
+		<h5 class="text-muted my-4">IEEE Transactions on Information Forensics and Security</h5>
+		<!-- <h5 class="my-4">Who Are You?! Adventures in Authentication Workshop, WAY-2021, Vancouver, B.C., Canada, August 11-13, 2021</h5> -->
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:mage.kim@samsung.com">
+				<img src="images/at.svg"/>
+				Minho Kim</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://www.samsung.com/us/">Samsung Electronics, Mobile Experience R&D Center</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:sohyeon.jeon@samsung.com">
+				<img src="images/at.svg"/>
+				Sohyeon Jeon</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://www.samsung.com/us/">Samsung Electronics, Mobile Experience R&D Center</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:hosang21.lee@samsung.com">
+				<img src="images/at.svg"/>
+				Hosang Lee</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://www.samsung.com/us/">Samsung Electronics, Mobile Experience R&D Center</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:moons.chang@samsung.com">
+				<img src="images/at.svg"/>
+				Moonsoo Chang</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://www.samsung.com/us/">Samsung Electronics, Mobile Experience R&D Center</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:d.progonov@samsung.com">
+				<img src="images/at.svg"/>
+				Dmytro Progonov</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://research.samsung.com/srk">Samsung R&D Institute Ukraine</a>
+			</div>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://kpi.ua/en/">Igor Sikorsky Kyiv Polytechnic Institute</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<a type="button" class="btn btn-primary" href="mailto:va.kuznetsov@samsung.com">
+				<img src="images/at.svg"/>
+				Vasyl Kuznetsov</a>
+			<div class="col">
+			<a type="button" class="btn btn-link" href="https://research.samsung.com/srk">Samsung R&D Institute Ukraine</a>
+			</div>
+		</div>
+	</div>
+
+	<hr/>
+
+	<div class="row text-center">
+		<div class="col-4">
+			<a type="button" class="btn btn-light" href="TBD">
+				<img src="images/file-pdf.svg" class="img-fluid p-2" alt="file">
+				<h5>Paper</h5>
+				<p>Download pdf</p>
+			</a>
+		</div>
+		<div class="col-4">
+			<a type="button" class="btn btn-light" href="https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=10206">
+				<img src="images/person-chalkboard.svg" class="img-fluid p-2" alt="file">
+				<h5>IEEE TIFS</h5>
+				<p>Conference</p>
+			</a>
+		</div>
+		<div class="col-4">
+			<a type="button" class="btn btn-light" href="./bibtex_citation.txt">
+				<img src="images/graduation-cap.svg" class="img-fluid p-2" alt="file">
+				<h5>BIBTEX</h5>
+				<p>Cite the paper</p>
+			</a>
+		</div>
+	</div>
+    
+	<div class="row">
+	<div class="col-12">
+		<h4 class="text-center mt-4">Abstract</h4>
+	</div>
+
+            <div class="offset-md-0 col-md-12 main_text">
+              <div class="lead mb-0">
+                Modern mobile devices include a wide range of sensors for gathering and processing biometric data. 
+				Of special interest is fingerprint sensors due to their low cost, high energy efficiency, and availability 
+				of fast methods for fingerprint samples matching. Nevertheless, robust matching of users' fingerprint 
+				in various conditions (e.g. wet or damaged skin) during authentication remains an unsolved task. 
+				This task is complicated by the necessity of matching samples created using different methods, such as 
+				a contact-based template with a new contactless fingerprint sample.
+
+				<p>&nbsp;</p>
+
+				This work presents methods for reliable fingerprint recognition and matching irrespective of the fingerprint 
+				retrieval approach used. We proposed using a unified 3D-fingerprint model that preserves fine structure instead of 
+				creating contact-based or contactless samples during user enrollment. Fast methods for reliable restoration of 
+				such fingerprints and their adaptation for matching with other samples are proposed. Performance analysis of 
+				the state-of-the-art and proposed solution proved its efficiency in a wide range of practical use cases. 
+				The user authentication accuracy (FAR=3.08%, FRR=2.67%) demonstrates up to six times improvement 
+				over state-of-the-art solutions, even for the most difficult case of contactless-to-contactless fingerprint matching. 
+				Thus, the proposed solution enables reliable user authentication by matching with both contactless and 
+				contact-based fingerprint samples without needing to store a set of templates. This is especially important 
+				for resource-constrained smartphones and other mobile devices with built-in fingerprint sensors.
+
+				<p>&nbsp;</p>
+
+				</div>
+            </div>
+            <p></p>
+          </div>
+		  
+	<div class="row">
+	<div class="col-12">
+		<h4 class="text-center mt-4">Proposed solution</h4>
+	</div>
+
+            <div class="offset-md-0 col-md-12 main_text">
+              <div class="lead mb-0">
+                Our method uses a unified 3D-fingerprint that preserves the fine structure of fingerprint ridges 
+				as well as the user's finger shape (namely, fingertip surface curvature and geometric proportions). 
+				Then, the 3D-fingerprint can be used for matching with either contactless or contact-based templates 
+				by unwrapping into 2D plane. Optionally, the restored fingerprint may be compared with other 3D-fingerprints 
+				gathered with specialized hardware.
+
+				<p>&nbsp;</p>
+
+				The accurate restoration of the user's fingerprint by the proposed solution is achieved through 
+				the integration of novel methods for 3D-fingerprint reconstruction and their robust matching 
+				with templates obtained in contact-based and contactless manners. The main processing stages 
+				of the proposed solution are presented below.
+
+				<p>&nbsp;</p>
+				
+				<table border="1" cellpadding="10" cellspacing="10" style="min-width:500px" class="mx-auto">
+					<tbody>
+						<tr>
+							<td style="text-align:center"><img width=100% height=100% src="images/MainPipeline2.png" type="image/png" alt="Main-Pipeline-2" object-fit=contain></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p>&nbsp;</p>
+				
+				The contactless fingerprint restoration begins with gathering a pair of fingertip surface images 
+				using the built-in rear camera of a smartphone. We use the widespread assumption that images are 
+				gathered under uniform lighting, and the camera's intrinsic parameters (such as focus distance and 
+				optical center position) are known in advance. Thus, no additional calibration of the used camera is needed.
+				
+				<p>&nbsp;</p>
+				
+				At the second stage, gathered pairs of images are used for restoring the 3D-fingerprint. A part (slice) of 
+				the whole fingertip surface is reconstructed from each captured image. Then, these slices are merged 
+				into a single 3D-fingerprint. The unwrapping procedure is applied to convert the obtained 3D-fingerprint 
+				into a planar one and to make fingerprint matching with the reference template possible. 
+				The distinctive feature of the proposed unwrapping method is taking into account the curvature and 
+				orientation of the processed 3D-fingerprint to minimize elastic and perspective distortions. 
+				Finally, the matcher module processes both the prepared fingerprint and the reference template to obtain 
+				the final decision for user authentication.
+
+				</div>
+            </div>
+            <p></p>
+          </div>
+    
+	<div class="row">
+	<div class="col-12">
+		<h4 class="text-center mt-4">Experiment results</h4>
+	</div>
+
+            <div class="offset-md-0 col-md-12 main_text">
+              <div class="lead mb-0">
+                The evaluation of state-of-the-art and proposed solutions was done on an in-house collected dataset. 
+				The dataset includes fingerprint samples collected from 50 volunteers (31 males and 19 females). 
+				The fingerprint samples for each person were gathered for 10 fingers rotated to the left, right, and top directions 
+				from 0° to 45° degrees with a step of 15° degrees. Image gathering was repeated 5 times 
+				for each finger and each type of rotation. A lightbox with a color temperature of 5,500 (K) was used to 
+				provide uniform lighting during dataset preparation. The dataset collection procedure follows the requirements 
+				of <a href="https://www.iso.org/standard/73515.html">ISO/IEC 19795-1:2021</a> 
+				and <a href="https://www.nist.gov/publications/data-format-interchange-fingerprint-facial-other-biometric-information-ansinist-itl-1-1">NIST SP 500-290</a> standards.
+
+				<p>&nbsp;</p>
+
+				The high-resolution fingerprint scanner Supreme RealScan-D was used to collect the reference fingerprint samples. 
+				Also, the popular smartphone models Samsung Galaxy SM-A146B and Galaxy SM-A256B were applied to gather images for 
+				contactless fingerprint restoration. The statistics of the collected samples are presented in the table below.
+
+				<p>&nbsp;</p>
+				
+				<style>
+					table {
+						border-collapse: collapse;
+						width: 100%;
+					}
+					th, td {
+						border: 1px solid black;
+						padding: 10px;
+						text-align: center;
+						vertical-align: middle;
+					}
+				</style>
+
+				<table>
+					<!-- Header Row 1 -->
+					<tr>
+						<th colspan="3" rowspan="2">Used sensor</th>
+						<th colspan="2">Number of samples</th>
+					</tr>
+					
+					<!-- Header Row 2 -->
+					<tr>
+						<th>In total</th>
+						<th>Per user<br>in average</th>
+					</tr>
+					
+					<!-- Data Row 1: Reference Scanner -->
+					<tr>
+						<td colspan="3">Reference scanner Supreme RealScan-D</td>
+						<td>5,000</td>
+						<td>100</td>
+					</tr>
+					
+					<!-- Smartphones Row 1: SM-A146B from rear camera -->
+					<tr>
+						<td rowspan="4">Smart-<br>phones</td>
+						<td rowspan="2">Samsung<br>SM-A146B</td>
+						<td>from rear camera</td>
+						<td>53,814</td>
+						<td>1,076</td>
+					</tr>
+					
+					<!-- Smartphones Row 2: SM-A146B from SMFS -->
+					<tr>
+						<td>from SMFS</td>
+						<td>39,414</td>
+						<td>1,577</td>
+					</tr>
+					
+					<!-- Smartphones Row 3: SM-A256B from rear camera -->
+					<tr>
+						<td rowspan="2">Samsung<br>SM-A256B</td>
+						<td>from rear camera</td>
+						<td>64,924</td>
+						<td>1,298</td>
+					</tr>
+					
+					<!-- Smartphones Row 4: SM-A256B from SMFS -->
+					<tr>
+						<td>from SMFS</td>
+						<td>39,414</td>
+						<td>1,577</td>
+					</tr>
+				</table>
+				
+				<p>&nbsp;</p>
+				
+				We performed a modeling study to justify that our 3D reconstruction procedure is precise 
+				enough for user authentication. Due to the absence of a "normal" (standard) 3D shape for 
+				the human fingertip surface in the open literature, we applied an ellipsoid surface for its approximation. 
+				The parameters of the used ellipsoid were randomly selected from a uniform distribution to model the size of real fingers:
+
+				<ul>
+					<li>The length for OX axis (width of a finger) was chosen randomly around 18 (mm), allowing deviation of ±25%;</li>
+					<li>The length for OY axis (height of a finger) was chosen randomly around 18 (mm), allowing deviation of ±25%;</li>
+					<li>The lengths for OZ half-axis (depth of a finger) was chosen around 9 (mm), allowing deviation of ±25%.</li>
+				</ul>
+				
+				The images gathering procedure was emulated using pinhole camera model. We considered the case of pinhole cameras placed 
+				in two positions selected according to the table:
+				
+				<p>&nbsp;</p>
+				
+				<style>
+					table {
+						border-collapse: collapse;
+						width: 100%;
+					}
+					th, td {
+						border: 1px solid black;
+						padding: 10px;
+						text-align: center;
+						vertical-align: middle;
+					}
+					th {
+						font-weight: bold;
+					}
+				</style>
+
+				<table>
+					<!-- Header Row -->
+					<tr>
+						<th></th>
+						<th>First camera</th>
+						<th>Second camera</th>
+					</tr>
+					
+					<!-- Data Row 1 -->
+					<tr>
+						<td>along OX axis, mm</td>
+						<td>x<sub>1</sub> ~ [-40, -10]</td>
+						<td>x<sub>2</sub> ~ [10, 40]</td>
+					</tr>
+					
+					<!-- Data Row 2 -->
+					<tr>
+						<td>along OY axis, mm</td>
+						<td>y<sub>1</sub> ~ [-10, -10]</td>
+						<td>y<sub>2</sub> ~ [-10, 10]</td>
+					</tr>
+					
+					<!-- Data Row 3 -->
+					<tr>
+						<td>along OZ axis, mm</td>
+						<td>z<sub>1</sub> ~ [90, 110]</td>
+						<td>z<sub>2</sub> ~ [90, 110]</td>
+					</tr>
+					
+					<!-- Data Row 4 -->
+					<tr>
+						<td>Euler rotation angles,<br>degrees</td>
+						<td>(α<sub>1</sub>, α<sub>2</sub>, α<sub>3</sub>):<br>α<sub>i</sub> = 0°</td>
+						<td>(α<sub>1</sub>', α<sub>2</sub>', α<sub>3</sub>'):<br>α<sub>i</sub>' ~ [-25°, 25°]</td>
+					</tr>
+				</table>
+				
+				<p>&nbsp;</p>
+				
+				In figure below, we show an example of the distribution of ground truth points on an ellipsoid surface. 
+				We placed 200 randomly selected points on the ellipsoid surface and calculated their projections onto visible 
+				2D planes of fields of view. The 2D points projected from same 3D-point are referred as corresponding ones. 
+				Finally, the coordinates of the obtained 2D points were rounded to integers (pixels). This rounding introduced 
+				some errors into the point coordinates, and the larger the focal length, the smaller this noise will be.
+				
+				<p>&nbsp;</p>
+				
+				<table border="1" cellpadding="10" cellspacing="10" style="min-width:500px" class="mx-auto">
+					<tbody>
+						<tr>
+							<td style="text-align:center"><img width=100% height=100% src="images/MainPipeline2.png" type="image/png" alt="Main-Pipeline-2" object-fit=contain></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p>&nbsp;</p>
+				
+				<style>
+					.math-variable {
+						font-style: italic;
+						font-family: 'Times New Roman', serif;
+					}
+					.citation {
+						color: #0066cc;
+					}
+				</style>
+
+				<p>
+					Several state-of-the-art methods for fundamental matrix <span class="math-variable">F</span> estimation were checked, 
+					namely RANSAC, 7Point/8Point<sup class="citation">[Hartley:MultipleView]</sup>, and USAC<sup class="citation">[Raguram:USAC]</sup>. 
+					During the evaluation, we used the default parameters for these methods according to the reference implementation in 
+					the OpenCV library<sup class="citation">[OpenCV:USAC]</sup>. 
+					In Figure 1: Reconstruction Error, we show the dependency of the RMSE of reconstructed point positions 
+					and rotation errors on the camera focal length.
+				</p>
+				
+				<p>&nbsp;</p>
+				
+				<table border="1" cellpadding="10" cellspacing="10" style="min-width:500px" class="mx-auto">
+					<tbody>
+						<tr>
+							<td style="text-align:center"><img width=100% height=100% src="images/MainPipeline2.png" type="image/png" alt="Main-Pipeline-2" object-fit=contain></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<p>&nbsp;</p>
+
+				<p>
+					The proposed solution was compared with state-of-the-art methods of contact-to-contactless fingerprint matching. The performance evaluation was done using FAR and FRR according to the recommendations for measuring biometric unlock security for Android OS<sup class="citation">[Android:MeasuringBiometricUnlockSecurity]</sup>.
+				</p>
+
+				<p>
+					During the evaluation, we compared the proposed solution with the following methods:
+				</p>
+
+				<ul>
+					<li><strong>VeriFinger SDK</strong> — is based on extraction and matching of popular fingerprint features, namely minutiae, on fingerprint samples<sup class="citation">[Verifinger:SDK]</sup>. The trial version of SDK was used due to licensing restrictions.</li>
+					
+					<li><strong>Grosz et al. method</strong> — is based on matching the contactless-to-contact based fingerprint using minutiae and texture features<sup class="citation">[Grosz:C2CL]</sup>. The method includes TPS module to detect elastic distortions on contactless fingerprint and to reduce their impact on matching accuracy. The texture-related features are extracted using modern DeepPrint network proposed by Engelsma et al.<sup class="citation">[Engelsma:DeepPrint]</sup>. The minutiae are extracted using popular VeriFinger SDK<sup class="citation">[Verifinger:SDK]</sup>. Matching of fingerprint was done by comparison of individual matching of texture-related features and minutiae according to authors recommendations<sup class="citation">[Grosz:C2CL]</sup>.</li>
+					
+					<li><strong>Pan et al. method</strong> — is based on applying the original deep-learning based dense minutiae descriptor<sup class="citation">[Pan:LatentFingerprintMatching]</sup>. It is represented as 3D-array, with two dimensions associated with the original image plane and the other dimension representing the abstract features. The proposed solution allows for reliable fingerprints matching while preserving relatively low computational overhead. We re-used the open source implementation of proposed solution<sup class="citation">[Pan:LatentFingerprintMatchingImplementation]</sup>.</li>
+					
+					<li><strong>MinNet model</strong> — is proposed by Ozturk et al.<sup class="citation">[Ozturk:MinNet]</sup>, and is based on using the minutiae patch embedding network. Embedding vectors generated for a fixed-size patch extracted around a minutiae are used in the local similarity assignment algorithm to produce a global similarity. This makes possible joint optimization of the spatial and angular distribution of neighboring minutiae and ridge flows of the patches. Due to absent of publicly available implementation, we re-implemented the solution and performed its training on collected in-house dataset.</li>
+				</ul>
+
+				<p>
+					The performance evaluation was done for three cases. First, we analyzed the accuracy of the restored contactless fingerprint by matching it with samples from the contact-based reference fingerprint scanner. Then, we considered a perspective scenario where the reference template is created on-device in a contactless manner, while user authentication is performed by gathering samples from the built-in fingerprint scanner. The last case relates to the situation of matching both the template and the gathered sample contactlessly. In this case, we considered the performance of the solution through the use of a mobile device that has only a camera and does not include any built-in fingerprint sensors.
+				</p>
+
+				<p>
+					The estimated authentication accuracy for the proposed and state-of-the-art solutions for the first considered use case (matching of contactless and contact fingerprints) is presented in Table 1: MatchContactlessToContactMerged.
+				</p>
+
+				<p class="caption">User authentication accuracy by matching of restored fingerprint with reference template using in-house dataset. The results are presented in the format of mean ± standard deviation.</p>
+
+				<table>
+					<!-- Header Row 1 -->
+					<tr>
+						<th rowspan="2">Processing method</th>
+						<th colspan="2">Contactless fingerprint to<br>contact template matching</th>
+						<th colspan="2">Contact fingerprint to<br>contactless template matching</th>
+						<th colspan="2">Contactless fingerprint to<br>contactless template matching</th>
+					</tr>
+					
+					<!-- Header Row 2 -->
+					<tr>
+						<th>FAR metric</th>
+						<th>FRR metric</th>
+						<th>FAR metric</th>
+						<th>FRR metric</th>
+						<th>FAR metric</th>
+						<th>FRR metric</th>
+					</tr>
+					
+					<!-- Data Row 1 -->
+					<tr>
+						<td>Ideal case</td>
+						<td>0.00</td>
+						<td>0.00</td>
+						<td>0.00</td>
+						<td>0.00</td>
+						<td>0.00</td>
+						<td>0.00</td>
+					</tr>
+					
+					<!-- Data Row 2 -->
+					<tr>
+						<td>VeriFinger SDK</td>
+						<td>28.13±12.96</td>
+						<td>35.01±10.14</td>
+						<td>23.45±9.23</td>
+						<td>33.78±12.02</td>
+						<td>48.48±15.74</td>
+						<td>40.04±16.64</td>
+					</tr>
+					
+					<!-- Data Row 3 -->
+					<tr>
+						<td>Grosz et al. method</td>
+						<td>7.03±6.11</td>
+						<td>8.31±7.22</td>
+						<td>6.08±8.23</td>
+						<td>7.93±9.14</td>
+						<td>8.02±10.47</td>
+						<td>9.04±12.27</td>
+					</tr>
+					
+					<!-- Data Row 4 -->
+					<tr>
+						<td>Pan et al. method</td>
+						<td>11.48±6.47</td>
+						<td>14.21±1.82</td>
+						<td>12.18±9.34</td>
+						<td>12.57±6.28</td>
+						<td>17.57±11.81</td>
+						<td>18.76±10.78</td>
+					</tr>
+					
+					<!-- Data Row 5 -->
+					<tr>
+						<td>MinNet model</td>
+						<td>13.25±6.14</td>
+						<td>18.32±7.58</td>
+						<td>9.27±7.42</td>
+						<td>15.24±8.27</td>
+						<td>13.48±9.27</td>
+						<td>20.18±9.08</td>
+					</tr>
+					
+					<!-- Data Row 6 -->
+					<tr>
+						<th>Proposed solution</th>
+						<td>2.05±1.37</td>
+						<td>3.07±1.87</td>
+						<td>1.93±2.15</td>
+						<td>2.24±2.08</td>
+						<td>3.08±1.99</td>
+						<td>2.67±1.08</td>
+					</tr>
+				</table>
+				
+				<p>&nbsp;</p>
+				
+				<p>
+					The results of experimental evaluation of modern and proposed methods proved the effectiveness of our solution in case of matching similar fingerprint types, namely contactless-to-contactless. The proposed solution preserves low error rate (within 3%), while applying state-of-the-art solutions leads to dramatically increasing of FAR and FRR up to six times (FAR ≃ 17.57% and FRR ≃ 18.76%). In the case of cross-matching of contactless fingerprints with contact-based fingerprints, the state-of-the-art methods allows to achieve moderate accuracy (FAR ≃ 11.48% and FRR ≃ 14.21%). The proposed solution makes possible decreasing the error rates up to five times (FAR ≃ 2.05% and FRR ≃ 3.07%). This proves effectiveness of our methods in the most difficult cases of fingerprints cross-matching with minimal impact on processing duration, where modern solutions requires thorough and tedious adaptation for each case.
+				</p>
+
+				</div>
+            </div>
+            <p></p>
+          </div>
+	
+	</div>
+
+	<hr />
+	<p style="text-align:center">Samsung R&D Institute Ukraine, Copyright&nbsp;&copy; 2026</p>
+  </body>
+</html>
