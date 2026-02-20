@@ -14,6 +14,9 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
 		integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 
+<!-- Plotly.js for 3D visualization -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 <!-- Care about mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -370,13 +373,25 @@
 				
 				<p>&nbsp;</p>
 				
-				<table border="1" cellpadding="10" cellspacing="10" style="min-width:500px" class="mx-auto">
-					<tbody>
-						<tr>
-							<td style="text-align:center"><img width=100% height=100% src="images/MainPipeline2.png" type="image/png" alt="Main-Pipeline-2" object-fit=contain></td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="container">
+					<div class="controls mb-4" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+						<div class="control-group" style="display: flex; flex-direction: column; align-items: center;">
+							<label for="axisA" style="font-weight: bold; margin-bottom: 5px;">Half-axis A (X)</label>
+							<input type="number" id="axisA" value="9.0" step="0.1" min="0.1" style="width: 80px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
+						</div>
+						<div class="control-group" style="display: flex; flex-direction: column; align-items: center;">
+							<label for="axisB" style="font-weight: bold; margin-bottom: 5px;">Half-axis B (Y)</label>
+							<input type="number" id="axisB" value="14.0" step="0.1" min="0.1" style="width: 80px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
+						</div>
+						<div class="control-group" style="display: flex; flex-direction: column; align-items: center;">
+							<label for="axisC" style="font-weight: bold; margin-bottom: 5px;">Half-axis C (Z)</label>
+							<input type="number" id="axisC" value="6.0" step="0.1" min="0.1" style="width: 80px; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
+						</div>
+						<button onclick="updateEllipsoidPlot()" class="btn btn-primary" style="align-self: center;">Update Plot</button>
+					</div>
+					<p class="text-center text-muted">Drag to rotate | Scroll to zoom</p>
+					<div id="ellipsoidPlot" style="width: 100%; height: 500px; background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);"></div>
+				</div>
 				
 				<p>&nbsp;</p>
 				
@@ -401,13 +416,101 @@
 				
 				<p>&nbsp;</p>
 				
-				<table border="1" cellpadding="10" cellspacing="10" style="min-width:500px" class="mx-auto">
-					<tbody>
-						<tr>
-							<td style="text-align:center"><img width=100% height=100% src="images/MainPipeline2.png" type="image/png" alt="Main-Pipeline-2" object-fit=contain></td>
-						</tr>
-					</tbody>
-				</table>
+				<!-- Reconstruction Error Plots -->
+				<div class="container">
+					<h5 class="text-center">Interactive Reconstruction Error Analysis</h5>
+					
+					<!-- Phone Selector -->
+					<div class="row mb-3">
+						<div class="col-12">
+							<label for="phone-select" style="font-weight: bold;">Target Phone:</label>
+							<select id="phone-select" class="form-select" onchange="updateReconstructionPhoneSelection()" style="max-width: 300px;">
+								<option value="s928b">s928b (2830 pixels)</option>
+								<option value="a146b" selected>a146b (3000 pixels)</option>
+							</select>
+						</div>
+					</div>
+					
+					<!-- Position Errors Plot -->
+					<div class="row mb-4">
+						<div class="col-12">
+							<h6 class="text-center">Position Errors</h6>
+							<div class="card p-3 mb-3">
+								<div class="checkbox-container mb-3" style="display: flex; flex-wrap: wrap; gap: 15px;">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-RANSAC" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-RANSAC">RANSAC</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-7Point" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-7Point">7Point</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-8Point" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-8Point">8Point</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-USAC_DEFAULT" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-USAC_DEFAULT">USAC_DEFAULT</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-USAC_ACCURATE" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-USAC_ACCURATE">USAC_ACCURATE</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-USAC_MAGSAC" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-USAC_MAGSAC">USAC_MAGSAC</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="pos-USAC_PROSAC" checked onchange="updateReconstructionPositionPlot()">
+										<label class="form-check-label" for="pos-USAC_PROSAC">USAC_PROSAC</label>
+									</div>
+								</div>
+								<div id="reconstructionPositionChart" style="width: 100%; height: 400px;"></div>
+							</div>
+						</div>
+					</div>
+					
+					<!-- Angle Errors Plot -->
+					<div class="row mb-4">
+						<div class="col-12">
+							<h6 class="text-center">Angle Errors</h6>
+							<div class="card p-3">
+								<div class="checkbox-container mb-3" style="display: flex; flex-wrap: wrap; gap: 15px;">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-RANSAC" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-RANSAC">RANSAC</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-7Point" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-7Point">7Point</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-8Point" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-8Point">8Point</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-USAC_DEFAULT" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-USAC_DEFAULT">USAC_DEFAULT</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-USAC_ACCURATE" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-USAC_ACCURATE">USAC_ACCURATE</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-USAC_MAGSAC" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-USAC_MAGSAC">USAC_MAGSAC</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="ang-USAC_PROSAC" checked onchange="updateReconstructionAnglePlot()">
+										<label class="form-check-label" for="ang-USAC_PROSAC">USAC_PROSAC</label>
+									</div>
+								</div>
+								<div id="reconstructionAngleChart" style="width: 100%; height: 400px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 				
 				<p>&nbsp;</p>
 
@@ -537,6 +640,346 @@
           </div>
 	
 	</div>
+
+	<script>
+		// Phone focal lengths for reconstruction plots
+		const reconstructionPhoneFocalLengths = {
+			"s928b": 2830,
+			"a146b": 3000
+		};
+
+		// Embedded data from position_errors.json
+		const positionErrorsData = {
+			"RANSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [3.4776444108183546, 1.946396910062006, 1.3434797793745523, 0.9813715180718523, 0.7682782530151467, 0.6629600513833389, 0.5336751094960649, 0.46169650143784985, 0.40353715748503616, 0.3734966165505328]},
+			"7Point": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [1.3277336151089483, 0.5913994644345356, 0.39875292309279603, 0.28738452058218267, 0.24638462778859221, 0.18960514903938191, 0.16042487320712115, 0.13875602457133876, 0.12196429515586917, 0.10799731542471883]},
+			"8Point": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [0.5068085394975538, 0.23441876003003376, 0.16174702591534848, 0.10953294765570566, 0.08601016656702604, 0.07232018817088354, 0.06254520177353583, 0.05312690122555644, 0.04794956239837235, 0.04431267294087232]},
+			"USAC_DEFAULT": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [0.5359945098406034, 0.23022018589219026, 0.15503716562539627, 0.11222717221118364, 0.08725654396321028, 0.07293525659587753, 0.06297456885961641, 0.05486759172663217, 0.048584988773771424, 0.04680668076860321]},
+			"USAC_ACCURATE": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [0.5429001848809942, 0.23038494907371, 0.15583593156018594, 0.11210990405192878, 0.08772086254282489, 0.0728178877493593, 0.06326658971885214, 0.054610243175742604, 0.04953375315644325, 0.04458752067204961]},
+			"USAC_MAGSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [0.5142674042114168, 0.22924811646269638, 0.15761279767098724, 0.10918594307020812, 0.08772678647168128, 0.07569555056945061, 0.06512516694415021, 0.05426183031757396, 0.05031554810908931, 0.04519669897176993]},
+			"USAC_PROSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "pos_error": [0.5398653465551645, 0.23257229351440306, 0.16300571056700283, 0.11255053028740593, 0.0871748497787281, 0.07224601493366768, 0.06314481769419092, 0.0530529685056175, 0.04825095469944841, 0.04411934742100377]}
+		};
+
+		// Embedded data from angle_errors.json
+		const angleErrorsData = {
+			"RANSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [17.621195418604316, 10.300695307883544, 7.424776659927814, 5.359917299297408, 4.343203538455478, 3.7791081679199094, 2.9795945739328977, 2.5749957200785967, 2.253238211169137, 2.2532165855474973]},
+			"7Point": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [7.147709775926794, 3.2671728969105374, 2.1669470924792305, 1.5723909629908301, 1.278286582413675, 1.040525503714567, 0.8774884601942128, 0.7879565303376399, 0.7054028659075199, 0.6139856209582762]},
+			"8Point": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [3.837733209452682, 1.6895729309698675, 1.2932204827253193, 0.8241996303548329, 0.6508196886788091, 0.5457491436740948, 0.4942371808620644, 0.4133743861448412, 0.37976896754709943, 0.3324481669804401]},
+			"USAC_DEFAULT": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [3.8013744370829237, 1.6314046529378252, 1.070580639128386, 0.7896992410087069, 0.6422252555969654, 0.5337136290723533, 0.4696353744863381, 0.4034866531933959, 0.36174992301928866, 0.31787841678835854]},
+			"USAC_ACCURATE": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [3.8109341306042213, 1.6299452533107153, 1.077220378553727, 0.7921351498058506, 0.6387979567853714, 0.533647089262823, 0.47395844115223834, 0.4034687743706804, 0.3559947049963643, 0.3107684599245186]},
+			"USAC_MAGSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [3.1845249211724425, 1.4456045266240032, 0.9315713144341328, 0.7147630354913195, 0.5567298984316931, 0.4802819394543402, 0.435069173957337, 0.3554531828786661, 0.3329021548363275, 0.28907186473492813]},
+			"USAC_PROSAC": {"F": [500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000], "angle_error": [3.8073164171421707, 1.6237722722945531, 1.2543793858159993, 0.7972119287197754, 0.6360907409058727, 0.5303098535762839, 0.47998498685189056, 0.39761124668923037, 0.3662159175230347, 0.32238610847061655]}
+		};
+
+		// Color scheme for different methods
+		const reconstructionColors = {
+			"RANSAC": "#FF6384",
+			"7Point": "#36A2EB",
+			"8Point": "#FFCE56",
+			"USAC_DEFAULT": "#4BC0C0",
+			"USAC_ACCURATE": "#9966FF",
+			"USAC_MAGSAC": "#FF9F40",
+			"USAC_PROSAC": "#C9CBCF"
+		};
+
+		// Generate upper half of ellipsoid surface
+		function generateUpperEllipsoidSurface(a, b, c, resolution = 50) {
+			const phi = [];
+			
+			for (let i = 0; i <= resolution; i++) {
+				phi.push(i * 2 * Math.PI / resolution);
+			}
+
+			const x = [];
+			const y = [];
+			const z = [];
+
+			// Generate only upper half: theta from 0 to PI/2
+			const thetaSteps = resolution / 2;
+			for (let t = 0; t <= thetaSteps; t++) {
+				const thetaSlice = t * (Math.PI / 2) / thetaSteps;
+				const xSlice = [];
+				const ySlice = [];
+				const zSlice = [];
+				
+				for (let p = 0; p < phi.length; p++) {
+					const phiSlice = phi[p];
+					xSlice.push(a * Math.sin(thetaSlice) * Math.cos(phiSlice));
+					ySlice.push(b * Math.sin(thetaSlice) * Math.sin(phiSlice));
+					zSlice.push(c * Math.cos(thetaSlice));
+				}
+				x.push(xSlice);
+				y.push(ySlice);
+				z.push(zSlice);
+			}
+
+			return { x, y, z };
+		}
+
+		// Generate random points on upper half of ellipsoid surface
+		function generateRandomPointsOnUpperEllipsoid(a, b, c, numPoints) {
+			const x = [];
+			const y = [];
+			const z = [];
+
+			for (let i = 0; i < numPoints; i++) {
+				// Generate random spherical coordinates for upper half
+				const u = Math.random() * Math.PI / 2;  // theta: 0 to PI/2 (upper half)
+				const v = Math.random() * 2 * Math.PI;  // phi: 0 to 2PI
+				
+				// Convert to ellipsoid coordinates
+				x.push(a * Math.sin(u) * Math.cos(v));
+				y.push(b * Math.sin(u) * Math.sin(v));
+				z.push(c * Math.cos(u));
+			}
+
+			return { x, y, z };
+		}
+
+		// Create or update the ellipsoid plot
+		function createEllipsoidPlot(a, b, c) {
+			// Generate upper half ellipsoid surface
+			const surface = generateUpperEllipsoidSurface(a, b, c);
+
+			// Generate random points (200 points) on upper half
+			const randomPoints = generateRandomPointsOnUpperEllipsoid(a, b, c, 200);
+
+			// Create traces for Plotly
+			const surfaceTrace = {
+				type: 'surface',
+				x: surface.x,
+				y: surface.y,
+				z: surface.z,
+				colorscale: [[0, 'pink'], [1, 'pink']],
+				opacity: 0.7,
+				showscale: false,
+				hovertemplate: 'X: %{x:.2f}<br>Y: %{y:.2f}<br>Z: %{z:.2f}<extra></extra>'
+			};
+
+			const pointsTrace = {
+				type: 'scatter3d',
+				mode: 'markers',
+				x: randomPoints.x,
+				y: randomPoints.y,
+				z: randomPoints.z,
+				marker: {
+					size: 5,
+					color: 'blue',
+					opacity: 0.9,
+					line: {
+						color: 'rgba(0,0,0,0.3)',
+						width: 1
+					}
+				},
+				name: 'Random Points',
+				hovertemplate: 'Point<br>X: %{x:.2f}<br>Y: %{y:.2f}<br>Z: %{z:.2f}<extra></extra>'
+			};
+
+			// Layout configuration
+			const layout = {
+				scene: {
+					xaxis: { title: 'X', range: [-a, a] },
+					yaxis: { title: 'Y', range: [-b, b] },
+					zaxis: { title: 'Z', range: [0, c] },
+					aspectmode: 'data'
+				},
+				margin: { l: 0, r: 0, t: 0, b: 0 },
+				paper_bgcolor: 'rgba(0,0,0,0)'
+			};
+
+			// Create or update the plot
+			const data = [surfaceTrace, pointsTrace];
+			Plotly.react('ellipsoidPlot', data, layout, { responsive: true });
+		}
+
+		// Update plot with new values from inputs
+		function updateEllipsoidPlot() {
+			const a = parseFloat(document.getElementById('axisA').value);
+			const b = parseFloat(document.getElementById('axisB').value);
+			const c = parseFloat(document.getElementById('axisC').value);
+
+			// Validate inputs
+			if (isNaN(a) || isNaN(b) || isNaN(c) || a <= 0 || b <= 0 || c <= 0) {
+				alert('Please enter valid positive numbers for all axes.');
+				return;
+			}
+
+			createEllipsoidPlot(a, b, c);
+		}
+
+		// Initial plot creation with default values
+		createEllipsoidPlot(9.0, 14.0, 6.0);
+
+		// Allow Enter key to trigger update
+		document.querySelectorAll('.controls input').forEach(input => {
+			input.addEventListener('keypress', function(e) {
+				if (e.key === 'Enter') {
+					updateEllipsoidPlot();
+				}
+			});
+		});
+
+		// Reconstruction Error Plots Functions
+		function createReconstructionVerticalLineShapeAndAnnotation(focalLength, phoneName) {
+			if (!focalLength) return { shapes: [], annotations: [] };
+			return {
+				shapes: [{
+					type: 'line',
+					x0: focalLength,
+					x1: focalLength,
+					y0: 0,
+					y1: 1,
+					yref: 'paper',
+					line: {
+						color: 'rgb(0, 0, 0)',
+						width: 4,
+						dash: 'dashdot'
+					},
+					name: 'Focal length'
+				}],
+				annotations: [{
+					x: focalLength,
+					y: 1,
+					yref: 'paper',
+					text: phoneName,
+					showarrow: false,
+					xanchor: 'center',
+					yanchor: 'bottom',
+					yshift: 10,
+					font: {
+						color: 'rgb(0, 0, 0)',
+						size: 14,
+						family: 'Arial, sans-serif'
+					},
+					bgcolor: 'rgba(255, 255, 255, 0.8)',
+					bordercolor: 'rgb(0, 0, 0)',
+					borderwidth: 1,
+					borderpad: 5
+				}]
+			};
+		}
+
+		function getReconstructionPositionTraces() {
+			const methods = ["RANSAC", "7Point", "8Point", "USAC_DEFAULT", "USAC_ACCURATE", "USAC_MAGSAC", "USAC_PROSAC"];
+			const traces = [];
+			
+			methods.forEach(method => {
+				if (document.getElementById(`pos-${method}`).checked) {
+					traces.push({
+						x: positionErrorsData[method].F,
+						y: positionErrorsData[method].pos_error,
+						mode: 'lines+markers',
+						name: method,
+						line: {
+							color: reconstructionColors[method],
+							width: 2
+						},
+						marker: {
+							size: 6
+						}
+					});
+				}
+			});
+			
+			return traces;
+		}
+
+		function getReconstructionAngleTraces() {
+			const methods = ["RANSAC", "7Point", "8Point", "USAC_DEFAULT", "USAC_ACCURATE", "USAC_MAGSAC", "USAC_PROSAC"];
+			const traces = [];
+			
+			methods.forEach(method => {
+				if (document.getElementById(`ang-${method}`).checked) {
+					traces.push({
+						x: angleErrorsData[method].F,
+						y: angleErrorsData[method].angle_error,
+						mode: 'lines+markers',
+						name: method,
+						line: {
+							color: reconstructionColors[method],
+							width: 2
+						},
+						marker: {
+							size: 6
+						}
+					});
+				}
+			});
+			
+			return traces;
+		}
+
+		function updateReconstructionPositionPlot() {
+			const selectedPhone = document.getElementById('phone-select').value;
+			const focalLength = reconstructionPhoneFocalLengths[selectedPhone];
+			const { shapes, annotations } = createReconstructionVerticalLineShapeAndAnnotation(focalLength, selectedPhone);
+			
+			const traces = getReconstructionPositionTraces();
+			const layout = {
+				title: {
+					text: 'Error of 3d reconstruction',
+					font: { size: 16 }
+				},
+				xaxis: {
+					title: 'Focal length, pixels',
+					range: [0, 5500]
+				},
+				yaxis: {
+					title: 'Position error, mm',
+					range: [0, 4]
+				},
+				shapes: shapes,
+				annotations: annotations,
+				showlegend: true,
+				legend: {
+					x: 0.02,
+					y: 0.98
+				},
+				hovermode: 'closest'
+			};
+
+			Plotly.react('reconstructionPositionChart', traces, layout, { responsive: true });
+		}
+
+		function updateReconstructionAnglePlot() {
+			const selectedPhone = document.getElementById('phone-select').value;
+			const focalLength = reconstructionPhoneFocalLengths[selectedPhone];
+			const { shapes, annotations } = createReconstructionVerticalLineShapeAndAnnotation(focalLength, selectedPhone);
+			
+			const traces = getReconstructionAngleTraces();
+			const layout = {
+				title: {
+					text: 'Error of found rotation',
+					font: { size: 16 }
+				},
+				xaxis: {
+					title: 'Focal length, pixels',
+					range: [0, 5500]
+				},
+				yaxis: {
+					title: 'Rotation angle error, degrees',
+					range: [0, 20]
+				},
+				shapes: shapes,
+				annotations: annotations,
+				showlegend: true,
+				legend: {
+					x: 0.02,
+					y: 0.98
+				},
+				hovermode: 'closest'
+			};
+
+			Plotly.react('reconstructionAngleChart', traces, layout, { responsive: true });
+		}
+
+		function updateReconstructionPhoneSelection() {
+			updateReconstructionPositionPlot();
+			updateReconstructionAnglePlot();
+		}
+
+		// Initialize reconstruction plots when page loads
+		updateReconstructionPhoneSelection();
+	</script>
 
 	<hr />
 	<p style="text-align:center">Samsung R&D Institute Ukraine, Copyright&nbsp;&copy; 2026</p>
